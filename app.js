@@ -2,9 +2,11 @@
 const express = require('express');
 const app = express();
 
-const productRoutes = require('./api/routes/menus');
+const menusRoutes = require('./api/routes/menus');
+const  pacientsRoutes = require('./api/routes/pacients');
 
-app.use('/menus', productRoutes);
+app.use('/menus', menusRoutes);
+app.use('/pacients',pacientsRoutes);
 
 
 
