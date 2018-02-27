@@ -10,7 +10,9 @@
   "author": "Juan Diego González (Gory) y Nicolás Cabrera (El Vargas)",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "mongoose": "^5.0.7",
     "morgan": "^1.9.0"
   },
   "devDependencies": {
