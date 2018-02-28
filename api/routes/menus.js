@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const Menu = require("../models/menu");
+const checkAuth = require("../middleware/check-auth");
 
 
 // get all
-router.get("/", function (req, res) {
+router.get("/" ,function (req, res) {
   Menu.find().exec().then(function (doc) {
 
     if (doc.length > 0) {
@@ -25,7 +26,7 @@ router.get("/", function (req, res) {
 });
 
 // post
-router.post("/", function (req, res) {
+router.post("/" ,checkAuth,function (req, res) {
   
   const items = req.body.food;
   

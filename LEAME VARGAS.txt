@@ -1,0 +1,5 @@
+Qué dice el Vargas!??
+
+creese un archivo que se llame nodemon.json y ahí pone lo que yo le diga eventualmente para que lo corra.
+
+salu2
