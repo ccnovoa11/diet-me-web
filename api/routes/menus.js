@@ -76,24 +76,16 @@ router.get("/:menuId", function (req, res) {
   });
 });
 
-//update por id
-
+//update por id. Se añade un nuevo item al menu.
 router.patch("/:menuId",  (req, res) => {
   const id = req.params.menuId;
-  const updateOps ={};
-  for( const ops of req.body){
-    updateOps[ops.propName] = ops.value;
-  }
-  Menu.update({_id: id},{$set:updateOps}).exec().then(result =>{
+  Menu.update({_id: id},{$push:{food:req.body}}).exec().then(result =>{
     console.log(result);
     res.status(200).json(result);
-
   }).catch();
-
-
 });
 
-//delete
+//delete. Se borra un menu.
 
 router.delete("/:menuId", function (req, res) {
   const menuId = req.params.menuId;

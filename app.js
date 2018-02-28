@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 
 const menusRoutes = require("./api/routes/menus");
 const pacientsRoutes = require("./api/routes/pacients");
+const userRoutes = require("./api/routes/users");
 
 // mongoose.connect("mongodb+srv://dietme-admin:"+ process.env.MONGO_ATLAS_PW +"@diet-me-node-2fyty.mongodb.net/test",{});
 
@@ -30,6 +31,7 @@ app.use(function (req, res, next) {
 //Rutas  que se encargan de los requests
 app.use("/menus", menusRoutes);
 app.use("/pacients", pacientsRoutes);
+app.use("/users", userRoutes);
 
 
 module.exports = app;
