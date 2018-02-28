@@ -56,7 +56,7 @@ router.post("/login", (req,res)=>{
           email:user[0].email,
           userid:user[0]._id
         },
-        process.env.JWT_PASS,
+        "elgranvaron",
         {
           expiresIn:"1h"
         });

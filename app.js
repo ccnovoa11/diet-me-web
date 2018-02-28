@@ -10,8 +10,8 @@ const mongoose = require("mongoose");
 const menusRoutes = require("./api/routes/menus");
 const pacientsRoutes = require("./api/routes/pacients");
 const userRoutes = require("./api/routes/users");
+const medicRoutes = require("./api/routes/medics");
 
-// mongoose.connect("mongodb+srv://dietme-admin:"+ process.env.MONGO_ATLAS_PW +"@diet-me-node-2fyty.mongodb.net/test",{});
 
 mongoose.connect("mongodb://localhost:27017/test");
 app.use(morgan("dev"));
@@ -32,6 +32,7 @@ app.use(function (req, res, next) {
 app.use("/menus", menusRoutes);
 app.use("/pacients", pacientsRoutes);
 app.use("/users", userRoutes);
+app.use("/medics", medicRoutes);
 
 
 module.exports = app;
