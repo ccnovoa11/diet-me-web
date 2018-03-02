@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
@@ -33,6 +32,5 @@ app.use("/menus", menusRoutes);
 app.use("/pacients", pacientsRoutes);
 app.use("/users", userRoutes);
 app.use("/medics", medicRoutes);
-
 
 module.exports = app;

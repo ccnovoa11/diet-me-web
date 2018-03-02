@@ -15,7 +15,7 @@ router.post("/singup", (req, res)=>{
     }else{
       bcrypt.hash(req.body.password,10,(err, hash)=>{
         if(err){
-          return res.status(500).jsdon({error:err});
+          return res.status(500).json({error:err});
         }else{
           const user = new User({
             _id : new mongoose.Types.ObjectId(),
@@ -54,7 +54,8 @@ router.post("/login", (req,res)=>{
       if(response){
         const token = jwt.sign({
           email:user[0].email,
-          userid:user[0]._id
+          userid:user[0]._id,
+          medic: user[0].medic
         },
         "elgranvaron",
         {

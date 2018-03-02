@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const Menu = require("../models/menu");
-const checkAuth = require("../middleware/check-auth");
-
+const Pacient = require("../models/pacient");
 
 // get all
 router.get("/" ,function (req, res) {
@@ -26,10 +25,9 @@ router.get("/" ,function (req, res) {
 });
 
 // post
-router.post("/" ,checkAuth,function (req, res) {
+router.post("/" ,function (req, res) {
   
   const items = req.body.food;
-  
   var comidas = [];
   var totCalories =0, carbsTot = 0, fatsTot = 0, protein = 0;
   // se recorre la lista de foods para despues añadirlo a una lista que después será añadida al nuevo menu
@@ -50,7 +48,6 @@ router.post("/" ,checkAuth,function (req, res) {
     protein: protein,
     food:comidas
   });
-
   menu.save().then((result) => {
     console.log(result);
     res.status(200).json({
@@ -60,7 +57,15 @@ router.post("/" ,checkAuth,function (req, res) {
   }).catch((error)=> {
     console.log(error);
   });
-
+  Pacient.update({_id:req.params.pacientId}, {$push:{menus: menu}}).exec().then(()=>{
+    res.status(200).json({
+      message:"A new Menu was added to your list"
+    });
+  }).catch(err =>{
+    res.status(200).json({
+      error:err
+    });
+  });
 
 });
 
