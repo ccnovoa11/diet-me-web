@@ -4,9 +4,10 @@ const Pacient = require("../models/pacient");
 const mongoose = require("mongoose");
 const Day = require("../models/day");
 const Menu = require("../models/menu");
+const checkAll = require("../middleware/auth-all");
 
 // get all
-router.get("/", function (req, res) {
+router.get("/", checkAll,function (req, res) {
   Pacient.find().populate("dia").exec().then(result => {
     res.status(200).json({
       message: "These are all the pacients",
@@ -21,7 +22,7 @@ router.get("/", function (req, res) {
 
 //update info de la información del paciente
 
-router.patch("/:idPacient", (req, res) => {
+router.patch("/:idPacient", checkAll,(req, res) => {
   Pacient.update({ _id: req.params.idPacient },
     {
       $set:
@@ -49,7 +50,7 @@ router.patch("/:idPacient", (req, res) => {
 });
 
 // get by id
-router.get("/:pacientId", function (req, res) {
+router.get("/:pacientId", checkAll,function (req, res) {
   Pacient.findById({ _id: req.params.pacientId }).populate("dia").exec().then(result => {
     res.status(200).json({
       pacient: result
@@ -73,7 +74,7 @@ router.delete("/:productId", function (req, res) {
 
 //Crea un nuevo día
 
-router.post("/createDay", (req, res) => {
+router.post("/createDay", checkAll,(req, res) => {
   var nDay = new Day({
     _id: mongoose.Types.ObjectId(),
     date: new Date(),
@@ -104,7 +105,7 @@ router.post("/createDay", (req, res) => {
 
 //agregar menus a un día.
 // Este man me manda el id del menu y el del día
-router.post("/addMenu", (req, res) => {
+router.post("/addMenu", checkAll,(req, res) => {
   Menu.findById({_id: req.body.idMenu}).exec().then(result=>{
     console.log(result);
     Day.update({_id:req.body.idDay}, {$push:{menus:result}}).exec().then(()=>{

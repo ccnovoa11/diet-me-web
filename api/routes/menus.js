@@ -3,9 +3,10 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const Menu = require("../models/menu");
 const Pacient = require("../models/pacient");
+const authAll = require("../middleware/auth-all");
 
 // get all
-router.get("/", function (req, res) {
+router.get("/", authAll,function (req, res) {
   Menu.find().exec().then(function (doc) {
 
     if (doc.length > 0) {
@@ -25,7 +26,7 @@ router.get("/", function (req, res) {
 });
 
 // get menus de un paciente
-router.post("/menusPac", (req, res) => {
+router.post("/menusPac", authAll,(req, res) => {
   Pacient.findById({ _id: req.body.idPacient }).populate("menus").exec().then((result) => {
     res.status(200).json({
       menus: result.menus
@@ -38,7 +39,7 @@ router.post("/menusPac", (req, res) => {
 });
 
 // post
-router.post("/", function (req, res) {
+router.post("/", authAll,function (req, res) {
 
   const items = req.body.food;
   var comidas = [];
@@ -76,7 +77,7 @@ router.post("/", function (req, res) {
 });
 
 // get by id
-router.get("/:menuId", function (req, res) {
+router.get("/:menuId", authAll,function (req, res) {
 
   const id = req.params.menuId;
   Menu.findById(id).exec().then(function (doc) {
@@ -89,7 +90,7 @@ router.get("/:menuId", function (req, res) {
 });
 
 //update por id. Se añade un nuevo item al menu.
-router.patch("/:menuId", (req, res) => {
+router.patch("/:menuId", authAll,(req, res) => {
   const id = req.params.menuId;
   Menu.findById({ _id: id }).exec().then(result1 => {
     var calories = (result1.caloriesTot + req.body.calories);
@@ -119,7 +120,7 @@ router.patch("/:menuId", (req, res) => {
 
 //delete. Se borra un menu.
 
-router.delete("/:menuId", function (req, res) {
+router.delete("/:menuId", authAll,function (req, res) {
   const menuId = req.params.menuId;
   Menu.remove({ _id: menuId }).exec().then(function (doc) {
     res.status(200).json(doc);
