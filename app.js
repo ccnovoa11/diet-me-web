@@ -12,7 +12,7 @@ const userRoutes = require("./api/routes/users");
 const medicRoutes = require("./api/routes/medics");
 
 
-mongoose.connect("mongodb://localhost:27017/newDataBase");
+mongoose.connect("mongodb://ElVargas:elgranvaron123@ds155278.mlab.com:55278/dietapp");
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

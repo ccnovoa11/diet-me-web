@@ -73,6 +73,16 @@ router.get("/", (req,res)=>{
   });
 });
 
+router.get("/a", (req,res)=>{
+   res.json([{
+  	id: 1,
+  	username: "samsepi0l"
+  }, {
+  	id: 2,
+  	username: "D0loresH4ze"
+  }]);
+});
+
 //GET MEDIC BY ID
 router.get("/:medicId", (req,res) =>{
   Medic.findById({_id: req.params.medicId}).populate("pacients").exec().then(result=>{
