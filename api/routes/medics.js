@@ -16,7 +16,7 @@ router.post("/singup", (req, res)=>{
     }else{
       bcrypt.hash(req.body.password,10,(err, hash)=>{
         if(err){
-          return res.status(500).jsdon({error:err});
+          return res.status(500).json({error:err});
         }else{
           const user = new User({
             _id : new mongoose.Types.ObjectId(),
@@ -24,15 +24,7 @@ router.post("/singup", (req, res)=>{
             password: hash,
             medic: true
           }); 
-          user.save().then( result =>{
-            console.log(result);
-            res.status(200).json({message:"user created"});
-          }).catch(errors =>{
-            console.log(errors);
-            res.status(500).json({
-              error:errors
-            });
-          });
+          user.save();
           const medic = new Medic({
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
@@ -84,8 +76,27 @@ router.get("/", (req,res)=>{
 //GET MEDIC BY ID
 router.get("/:medicId", (req,res) =>{
   Medic.findById({_id: req.params.medicId}).populate("pacients").exec().then(result=>{
+    var objs={
+      path:"pacients.menus",
+      model: "Menu"
+    };
+    mongoose.model("Medic").populate(result, objs,(err,popo)=>{
+      res.status(200).send(popo);
+    });
+    
+  }).catch(err =>{
+    res.status(500).json({
+      error:err
+    });
+  });
+});
+
+//buscar los paciente de un medico
+
+router.post("/lista", (req,res)=>{
+  Medic.findById({_id: req.body.medicId}).exec().populate("pacients").then(result=>{
     res.status(200).json({
-      medic: result
+      pacients: result.pacients
     });
   }).catch(err =>{
     res.status(500).json({
@@ -113,27 +124,16 @@ router.post("/createPacient", check,(req,res)=>{
             password: hash,
             medic: false
           });
-          user.save().then(result=>{
-            console.log(result);
-            res.status(200).json({message:"user created"});
-          }).catch(errors=>{
-            res.status(500).json({
-              error:errors
-            });
-          });
+          user.save();
           const pacient = new Pacient({
             _id: new mongoose.Types.ObjectId(),
             name : req.body.name,
             user: user
           });
-          pacient.save().then(() =>{
-            res.status(200).json({message:"pacient created"});
-          }).catch(err=>{
-            res.status(200).json({error:err});
-          });
+          pacient.save();
           Medic.update({_id:req.body.idMedic}, {$push:{pacients:pacient}}).exec().then(()=>{
             res.status(200).json({
-              message:"pacient added to the medic's list"
+              message:"pacient added to the medic's list",
             });
           }).catch(err=>{
             res.status(500).json({
