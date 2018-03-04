@@ -13,7 +13,7 @@ export class UserInfo extends Component{
 	getPacient(){
 		fetch("/pacients/5a9b0bc7306f9c200c903ce0",{
 			headers:{
-				token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2hvN0BqdWFuLmNvbSIsInVzZXJpZCI6IjVhOWIwYmM3MzA2ZjljMjAwYzkwM2NkZiIsIm1lZGljIjpmYWxzZSwiaWF0IjoxNTIwMTM0MzEyLCJleHAiOjE1MjAxMzc5MTJ9.KaIhQqhc6edYz7nOlO36ixixNEw2W7TDfNp_9nWQoFw"
+				token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2hvN0BqdWFuLmNvbSIsInVzZXJpZCI6IjVhOWIwYmM3MzA2ZjljMjAwYzkwM2NkZiIsIm1lZGljIjpmYWxzZSwiaWF0IjoxNTIwMTc0ODcwLCJleHAiOjE1MjAxNzg0NzB9.3Jr4xF7tuJVXrbpQB0vMtKcFrQJzSYIIQYbxz-R9qr4"
 			}
 		})
 			.then(res => res.json())
