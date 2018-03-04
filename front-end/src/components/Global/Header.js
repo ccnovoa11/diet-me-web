@@ -1,18 +1,19 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
 
 export class Header extends Component{
-	
+
 	render(){
 		return(
-			<ul className="nav nav-pills">
-				<li className="nav-item">
-					<Link to="/" className="nav-link">Home</Link>
-				</li>
-				<li className="nav-item">
-					<Link to="/search" className="nav-link">Search Food</Link>
-				</li>
-			</ul>
+			<div id="head">
+				<div className="row">
+					<div className="col-sm-4 col-sm-offset-2">
+						<h4>{this.props.userName}</h4>
+					</div>
+					<div className="col-sm-4">
+						<h4>Calorias: {this.props.calories}</h4>
+					</div>
+				</div>
+			</div>
 		);
 	}
 }

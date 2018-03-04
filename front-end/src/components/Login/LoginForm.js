@@ -23,21 +23,17 @@ export default class LoginForm extends React.Component {
     event.preventDefault();
     superagent.post("/users/login").send({ email: this.state.email, password: this.state.password }).end((err, res) => {
       if (err) { this.setState({ errorMessage: "Cannot Authenticate Failed" }); return; }
-      console.log(res.body);
       localStorage.setItem("token", res.body.token);
-      this.setState();
+      this.props.onSuccesfulLogin();
     });
   }
-  isAuthenticated() {
-    const token = localStorage.getItem("token");
-    return (token && token.length > 10);
-  }
+ 
 
   render() {
-    const isAlreadyAuth = this.isAuthenticated();
+    
     return (
       <div>
-        {isAlreadyAuth ? <Redirect to={{ pathname: "/day" }} /> : (
+        
           <form onSubmit={this.submitForm.bind(this)}>
             <TextField
               hintText="email"
@@ -52,12 +48,10 @@ export default class LoginForm extends React.Component {
               value={this.state.password}
               onChange={this.handlePasswordChanged.bind(this)} /><br /><br />
 
-            <button type="submit" label="Submit" > Submit </button>
+            <button type="submit" label="Submit" onClick = {this.submitForm.bind(this)} > Submit </button>
 
 
           </form>
-
-        )}
       </div>
 
     );

@@ -3,6 +3,8 @@ import Paper from "material-ui/Paper";
 
 import { Link } from "react-router-dom";
 import LoginForm from "./LoginForm";
+import { Redirect } from "react-router-dom";
+
 
 const styles = {
   paper: {
@@ -12,12 +14,30 @@ const styles = {
 };
 
 export class Login extends React.Component {
+  isAuthenticated(){
+    const token = localStorage.getItem("token");
+    return (token && token.length > 10);
+  }
+  
+  handleSuccesfulLogin(){
+    this.setState();
+  }
+  
+
+
   render() {
+  
+    const isAlreadyAuth = this.isAuthenticated();
     return (
       <Paper style={styles.paper}>
-        <h2>Login</h2>
-        <LoginForm />
+      { isAlreadyAuth?<Redirect to={{ pathname: "/day" } } /> : (
+          <div>
+          <h2>Login</h2>
+          <LoginForm onSuccesfulLogin={this.handleSuccesfulLogin.bind(this)} />
+          </div>
+      )}
       </Paper>
+
     )
-  }
+}
 }
