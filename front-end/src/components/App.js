@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Side} from "./Global/Side";
 import {Header} from "./Global/Header";
 
 export class App extends Component{
@@ -7,9 +8,12 @@ export class App extends Component{
 		return(
 			<div>
 				<div>
+					<Side/>
+				</div>
+				<div className="main">
 					<Header/>
 				</div>
-				<div>
+				<div className="main">
 					{this.props.children}
 				</div>
 			</div>
