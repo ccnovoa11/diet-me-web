@@ -1,9 +1,12 @@
 {
     "env": {
         "browser": true,
-        "commonjs": true,
-        "es6": true
+        "es6": false,
+        "node":true
+
+
     },
+
     "extends": "eslint:recommended",
     "parserOptions": {
         "ecmaFeatures": {
@@ -14,15 +17,17 @@
     },
     "plugins": [
         "react"
+  
     ],
     "rules": {
         "indent": [
             "error",
-            "tab"
+            2
         ],
+        "no-console":"off",
         "linebreak-style": [
             "error",
-            "windows"
+            "unix"
         ],
         "quotes": [
             "error",
