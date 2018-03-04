@@ -13,6 +13,7 @@ const medicRoutes = require("./api/routes/medics");
 
 
 mongoose.connect("mongodb://ElVargas:elgranvaron123@ds155278.mlab.com:55278/dietapp");
+//mongoose.connect("mongodb://localhost:27017/newDataBase");
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

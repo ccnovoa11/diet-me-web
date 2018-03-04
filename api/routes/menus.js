@@ -27,14 +27,14 @@ router.get("/", authAll,function (req, res) {
 
 // get menus de un paciente
 router.post("/menusPac", authAll,(req, res) => {
+  console.log(req.body.idPacient);
   Pacient.findById({ _id: req.body.idPacient }).populate("menus").exec().then((result) => {
     res.status(200).json({
       menus: result.menus
     });
   }).catch(err => {
     res.status(500).json({
-      error: err,
-	  message: "que putas me pasa"
+      error: err
     });
   });
 });

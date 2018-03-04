@@ -4,8 +4,8 @@
   "description": "api rest",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "heroku-postbuild": "cd front-end && npm install && npm run build"
   },
   "author": "Juan Diego González (Gory) y Nicolás Cabrera (El Vargas)",
   "license": "MIT",
@@ -26,10 +26,6 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-standard": "^3.0.1",
-    "nodemon": "^1.15.1"
-  },
-"scripts": {
-    "start": "node server.js",
-    "heroku-postbuild": "cd front-end && npm install && npm run build"
+    "nodemon": "^1.17.1"
   }
 }
