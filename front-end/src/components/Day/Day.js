@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {MenuItem} from "./MenuItem";
 
 export class Day extends Component{
 	constructor(props){
@@ -8,7 +9,17 @@ export class Day extends Component{
 		};
 	}
     
-
+	getMenus(){
+		fetch("/menusPac", {
+			method: "POST",
+			body: {idPacient: this.props.id}
+		}).then(res => res.json())
+			.then( p => this.setState({ menus: p.menus}));
+	}
+    
+	componentDidMount(){
+		this.getMenus();
+	}
 
 	render(){
 		return(
@@ -18,9 +29,9 @@ export class Day extends Component{
                             Add Menu
 					</button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
+						{this.state.menus.map((d, index) => {
+							return <MenuItem name={d.name} key={index}/>;
+						})}
 					</div>
 				</div>
 			</div>

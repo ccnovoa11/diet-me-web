@@ -7,7 +7,7 @@ export class Side extends Component{
 		return(
 			<div className="sidenav">
 				<Link to="/info">Info</Link>
-				<Link to="/search">Services</Link>
+				<Link to="/day">Day</Link>
 				<Link to="/search">Clients</Link>
 				<Link to="/search">Contact</Link>
 			</div>
