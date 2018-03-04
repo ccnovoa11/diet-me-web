@@ -1,6 +1,5 @@
 import React from "react";
 import Paper from "material-ui/Paper";
-
 import { Link } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import { Redirect } from "react-router-dom";
@@ -30,9 +29,9 @@ export class Login extends React.Component {
     const isAlreadyAuth = this.isAuthenticated();
     return (
       <Paper style={styles.paper}>
-      { isAlreadyAuth?<Redirect to={{ pathname: "/day" } } /> : (
+      { isAlreadyAuth? <Redirect to={{ pathname: "/day" } } /> : (
           <div>
-          <h2>Login</h2>
+          <h2 className = "tittle">Login</h2>
           <LoginForm onSuccesfulLogin={this.handleSuccesfulLogin.bind(this)} />
           </div>
       )}

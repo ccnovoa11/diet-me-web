@@ -10,7 +10,7 @@ export const AppRoutes=() =>
 	<App>
 		<Switch>
 			<Route path="/search" component={IngredientList}/>
-			<Route path="/" component={Login}/>
+			<Route path="/login" component={Login}/>
 			<Route path="/info" component={UserInfo}/>
 			<Route path="/day" component={Day}/>
 		</Switch>
