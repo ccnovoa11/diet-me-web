@@ -1,20 +1,31 @@
 import React, { Component } from "react";
 import { MenuItem } from "./MenuItem";
+import axios from "axios";
+import superagent from "superagent";
 
 export class Day extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+
+  componentWillMount() {
+    this.setState({
       menus: []
-    };
+    });
   }
 
   getMenus() {
-    fetch("/menusPac", {
+    var token = localStorage.getItem("token");
+    var idUser = localStorage.getItem("idUser");
+    console.log(token);
+    console.log(idUser);
+    fetch("/menus/menusPac", {
       method: "POST",
-      body: { idPacient: this.props.id }
+      headers: {
+        "Content-Type": "application/json",
+        "token": token
+      },
+      body: JSON.stringify({ idPacient: idUser })
     }).then(res => res.json())
-      .then(p => this.setState({ menus: p.menus }));
+      .then(p => { this.setState({ menus: p.menus }); });
+
   }
 
   componentDidMount() {
@@ -22,13 +33,14 @@ export class Day extends Component {
   }
 
   render() {
+    console.log(this.state.menus);
     return (
       <div>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div className="dropdown">
+          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Add Menu
 					</button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
             {this.state.menus.map((d, index) => {
               return <MenuItem name={d.name} key={index} />;
             })}

@@ -11,7 +11,7 @@ export class App extends Component{
 					<Side/>
 				</div>
 				<div className="main">
-					<Header/>
+					<Header />
 				</div>
 				<div className="main">
 					{this.props.children}
