@@ -12,19 +12,31 @@ export class Day extends Component {
   }
 
   getMenus() {
-    var token = localStorage.getItem("token");
-    var idUser = localStorage.getItem("idUser");
-    console.log(token);
-    console.log(idUser);
-    fetch("/menus/menusPac", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "token": token
-      },
-      body: JSON.stringify({ idPacient: idUser })
-    }).then(res => res.json())
-      .then(p => { this.setState({ menus: p.menus }); });
+    
+    fetch("/users/" + localStorage.getItem("idUser")).then(res => { 
+      return res.json(); 
+    }).then(myJson =>{
+      console.log(myJson, "quien soy?");
+      localStorage.setItem("idPacient",myJson.idPacient);
+      console.log(localStorage.getItem("idPacient"));
+
+      var token = localStorage.getItem("token");
+      var idPac = localStorage.getItem("idPacient");
+      fetch("/menus/menusPac", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "token": token
+        },
+        body: JSON.stringify({ idPacient: idPac })
+  
+      }).then(res => res.json())
+        .then(p => { console.log(p); this.setState({ menus: p.menus }); });
+    });
+  
+
+
+
 
   }
 
