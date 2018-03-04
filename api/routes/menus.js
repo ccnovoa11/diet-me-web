@@ -33,7 +33,8 @@ router.post("/menusPac", authAll,(req, res) => {
     });
   }).catch(err => {
     res.status(500).json({
-      error: err
+      error: err,
+	  message: "que putas me pasa"
     });
   });
 });
