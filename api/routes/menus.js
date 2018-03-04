@@ -3,9 +3,10 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const Menu = require("../models/menu");
 const Pacient = require("../models/pacient");
+const authAll = require("../middleware/auth-all");
 
 // get all
-router.get("/" ,function (req, res) {
+router.get("/", authAll,function (req, res) {
   Menu.find().exec().then(function (doc) {
 
     if (doc.length > 0) {
@@ -24,19 +25,32 @@ router.get("/" ,function (req, res) {
 
 });
 
+// get menus de un paciente
+router.post("/menusPac", authAll,(req, res) => {
+  Pacient.findById({ _id: req.body.idPacient }).populate("menus").exec().then((result) => {
+    res.status(200).json({
+      menus: result.menus
+    });
+  }).catch(err => {
+    res.status(500).json({
+      error: err
+    });
+  });
+});
+
 // post
-router.post("/" ,function (req, res) {
-  
+router.post("/", authAll,function (req, res) {
+
   const items = req.body.food;
   var comidas = [];
-  var totCalories =0, carbsTot = 0, fatsTot = 0, protein = 0;
+  var totCalories = 0, carbsTot = 0, fatsTot = 0, protein = 0;
   // se recorre la lista de foods para despues añadirlo a una lista que después será añadida al nuevo menu
-  for(var i in items){
+  for (var i in items) {
     comidas.push(items[i]);
     totCalories += items[i].calories;
     carbsTot += items[i].carbs;
-    fatsTot+= items[i].fats;
-    protein+= items[i].protein;
+    fatsTot += items[i].fats;
+    protein += items[i].protein;
   }
   // se crea el nuevo menu.
   const menu = new Menu({
@@ -46,31 +60,24 @@ router.post("/" ,function (req, res) {
     carbsTot: carbsTot,
     fatsTot: fatsTot,
     protein: protein,
-    food:comidas
+    food: comidas
   });
-  menu.save().then((result) => {
-    console.log(result);
+  menu.save();
+  Pacient.update({ _id: req.body.pacientId }, { $push: { menus: menu } }).exec().then(() => {
     res.status(200).json({
-      message: "Handling POST request to /products",
-      createdMenu: menu
+      message: "A new Menu was added to your list",
+      menu: menu
     });
-  }).catch((error)=> {
-    console.log(error);
-  });
-  Pacient.update({_id:req.params.pacientId}, {$push:{menus: menu}}).exec().then(()=>{
-    res.status(200).json({
-      message:"A new Menu was added to your list"
-    });
-  }).catch(err =>{
-    res.status(200).json({
-      error:err
+  }).catch(err => {
+    res.status(500).json({
+      error: err
     });
   });
 
 });
 
 // get by id
-router.get("/:menuId", function (req, res) {
+router.get("/:menuId", authAll,function (req, res) {
 
   const id = req.params.menuId;
   Menu.findById(id).exec().then(function (doc) {
@@ -83,17 +90,37 @@ router.get("/:menuId", function (req, res) {
 });
 
 //update por id. Se añade un nuevo item al menu.
-router.patch("/:menuId",  (req, res) => {
+router.patch("/:menuId", authAll,(req, res) => {
   const id = req.params.menuId;
-  Menu.update({_id: id},{$push:{food:req.body}}).exec().then(result =>{
-    console.log(result);
-    res.status(200).json(result);
-  }).catch();
+  Menu.findById({ _id: id }).exec().then(result1 => {
+    var calories = (result1.caloriesTot + req.body.calories);
+    var carbs = result1.carbsTot + req.body.carbs;
+    var fats = result1.fatsTot + req.body.fats;
+    var protein = result1.protein + req.body.protein;
+
+    Menu.update({ _id: id },
+      { $push: { food: req.body } }).exec();
+    Menu.update({_id:id},{$set:{
+      caloriesTot:calories,
+      fatsTot: fats,
+      protein: protein,
+      carbsTot: carbs
+    }}).exec().then(result2 =>{
+      console.log(result2);
+      res.status(200).json({
+        message: "a new item was added to your menu."
+      });
+
+    }).catch();
+
+  });
 });
+
+//delete a item from de food list 
 
 //delete. Se borra un menu.
 
-router.delete("/:menuId", function (req, res) {
+router.delete("/:menuId", authAll,function (req, res) {
   const menuId = req.params.menuId;
   Menu.remove({ _id: menuId }).exec().then(function (doc) {
     res.status(200).json(doc);

@@ -8,31 +8,23 @@ const bcrypt = require("bcrypt");
 const check = require("../middleware/check-auth");
 
 //Se crea un nuevo Medico en la ruta. 
-router.post("/singup", (req, res)=>{
+router.post("/singup",(req, res) => {
 
-  User.find({email:req.body.email}).exec().then(user =>{
-    if(user.length >= 1){
-      return res.status(409).json({message:"Mail already exists"});
-    }else{
-      bcrypt.hash(req.body.password,10,(err, hash)=>{
-        if(err){
-          return res.status(500).jsdon({error:err});
-        }else{
+  User.find({ email: req.body.email }).exec().then(user => {
+    if (user.length >= 1) {
+      return res.status(409).json({ message: "Mail already exists" });
+    } else {
+      bcrypt.hash(req.body.password, 10, (err, hash) => {
+        if (err) {
+          return res.status(500).json({ error: err });
+        } else {
           const user = new User({
-            _id : new mongoose.Types.ObjectId(),
-            email : req.body.email,
+            _id: new mongoose.Types.ObjectId(),
+            email: req.body.email,
             password: hash,
             medic: true
-          }); 
-          user.save().then( result =>{
-            console.log(result);
-            res.status(200).json({message:"user created"});
-          }).catch(errors =>{
-            console.log(errors);
-            res.status(500).json({
-              error:errors
-            });
           });
+          user.save();
           const medic = new Medic({
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
@@ -40,15 +32,15 @@ router.post("/singup", (req, res)=>{
             phoneNumbre: req.body.phoneNumbre,
             user: user
           });
-          medic.save().then(result =>{
+          medic.save().then(result => {
             res.status(200).json({
               message: "Handeling POST to /medics",
               medic: result
             });
-          }).catch(err  =>{
+          }).catch(err => {
             console.log(err);
             res.status(500).json({
-              error:err
+              error: err
             });
           });
         }
@@ -60,94 +52,102 @@ router.post("/singup", (req, res)=>{
 
 
 // get de todos los medicos que se encuentran en la base de datos
-router.get("/", (req,res)=>{
-  Medic.find().populate("pacients").exec().then(result =>{
-    if(result.length>0){
+router.get("/", check,(req, res) => {
+  Medic.find().populate("pacients").exec().then(result => {
+    if (result.length > 0) {
       console.log(result);
       res.status(200).json({
-        message:"GET all medics",
+        message: "GET all medics",
         medics: result
       });
-    } else{
+    } else {
       res.status(500).json({
         message: "No hay Medicos"
       });
     }
-  }).catch(err =>{
+  }).catch(err => {
     console.log(err);
     res.status(500).json({
-      error:err
+      error: err
     });
   });
 });
 
-router.get("/a", (req,res)=>{
-   res.json([{
-  	id: 1,
-  	username: "samsepi0l"
+router.get("/a", (req, res) => {
+  res.json([{
+    id: 1,
+    username: "samsepi0l"
   }, {
-  	id: 2,
-  	username: "D0loresH4ze"
+    id: 2,
+    username: "D0loresH4ze"
   }]);
 });
 
 //GET MEDIC BY ID
-router.get("/:medicId", (req,res) =>{
-  Medic.findById({_id: req.params.medicId}).populate("pacients").exec().then(result=>{
-    res.status(200).json({
-      medic: result
+router.get("/:medicId", check,(req, res) => {
+  Medic.findById({ _id: req.params.medicId }).populate("pacients").exec().then(result => {
+    var objs = {
+      path: "pacients.menus",
+      model: "Menu"
+    };
+    mongoose.model("Medic").populate(result, objs, (err, popo) => {
+      res.status(200).send(popo);
     });
-  }).catch(err =>{
+
+  }).catch(err => {
     res.status(500).json({
-      error:err
+      error: err
+    });
+  });
+});
+
+//buscar los paciente de un medico
+
+router.post("/lista", check,(req, res) => {
+  Medic.findById({ _id: req.body.medicId }).populate("pacients").exec().then(result => {
+    res.status(200).json({
+      pacients: result.pacients
+    });
+  }).catch(err => {
+    res.status(500).json({
+      error: err
     });
   });
 });
 
 
 // crear un paciente
-router.post("/createPacient", check,(req,res)=>{
-  User.find({email:req.body.email}).exec().then(user =>{
-    if(user.length>=1){
+router.post("/createPacient", check, (req, res) => {
+  User.find({ email: req.body.email }).exec().then(user => {
+    if (user.length >= 1) {
       return res.status(409).json({
-        message:"Mail already exists"
+        message: "Mail already exists"
       });
-    }else{
-      bcrypt.hash(req.body.password,10,(err,hash)=>{
-        if(err){
-          return res.status(500).json({error:err});
-        } else{
+    } else {
+      bcrypt.hash(req.body.password, 10, (err, hash) => {
+        if (err) {
+          return res.status(500).json({ error: err });
+        } else {
           const user = new User({
             _id: new mongoose.Types.ObjectId(),
             email: req.body.email,
             password: hash,
             medic: false
           });
-          user.save().then(result=>{
-            console.log(result);
-            res.status(200).json({message:"user created"});
-          }).catch(errors=>{
-            res.status(500).json({
-              error:errors
-            });
-          });
+          user.save();
           const pacient = new Pacient({
             _id: new mongoose.Types.ObjectId(),
-            name : req.body.name,
+            name: req.body.name,
             user: user
           });
-          pacient.save().then(() =>{
-            res.status(200).json({message:"pacient created"});
-          }).catch(err=>{
-            res.status(200).json({error:err});
-          });
-          Medic.update({_id:req.body.idMedic}, {$push:{pacients:pacient}}).exec().then(()=>{
+          pacient.save();
+          Medic.update({ _id: req.body.idMedic }, { $push: { pacients: pacient } }).exec().then(() => {
             res.status(200).json({
-              message:"pacient added to the medic's list"
+              message: "pacient added to the medic's list",
             });
-          }).catch(err=>{
+          }).catch(err => {
             res.status(500).json({
-              error:err
+              error: err
             });
           });
         }
