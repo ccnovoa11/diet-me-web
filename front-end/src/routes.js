@@ -19,4 +19,5 @@ export const AppRoutes = () =>
       <Route path="/pacient" component={Pacient} />
       <Route path="/pacients" component={PacientsList} />
     </Switch>
-  </App>;
+  </App>
+;

@@ -83,9 +83,9 @@ export class CreateMenu extends Component{
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2hvN0BqdWFuLmNvbSIsInVzZXJpZCI6IjVhOWIwYmM3MzA2ZjljMjAwYzkwM2NkZiIsIm1lZGljIjpmYWxzZSwiaWF0IjoxNTIwMjIwMjQ0LCJleHAiOjE1MjAyMjM4NDR9.dVIl9eT9q-QvEv-7_wGJPHBBS8nXOky1eVCeXCO2YQ8"
+        "token": localStorage.getItem("token")
       },
-      body: JSON.stringify({ food: this.state.itemList, name: this.state.menuName, pacientId: "5a9b0bc7306f9c200c903ce0" })
+      body: JSON.stringify({ food: this.state.itemList, name: this.state.menuName, pacientId: localStorage.getItem("pacientId") })
 
     })
   }
