@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 const check = require("../middleware/check-auth");
 
 //Se crea un nuevo Medico en la ruta. 
-router.post("/singup",(req, res) => {
+router.post("/singup", (req, res) => {
 
   User.find({ email: req.body.email }).exec().then(user => {
     if (user.length >= 1) {
@@ -52,7 +52,7 @@ router.post("/singup",(req, res) => {
 
 
 // get de todos los medicos que se encuentran en la base de datos
-router.get("/", check,(req, res) => {
+router.get("/", check, (req, res) => {
   Medic.find().populate("pacients").exec().then(result => {
     if (result.length > 0) {
       console.log(result);
@@ -84,7 +84,7 @@ router.get("/a", (req, res) => {
 });
 
 //GET MEDIC BY ID
-router.get("/:medicId", check,(req, res) => {
+router.get("/:medicId", check, (req, res) => {
   Medic.findById({ _id: req.params.medicId }).populate("pacients").exec().then(result => {
     var objs = {
       path: "pacients.menus",
@@ -103,7 +103,7 @@ router.get("/:medicId", check,(req, res) => {
 
 //buscar los paciente de un medico
 
-router.post("/lista", check,(req, res) => {
+router.post("/lista", check, (req, res) => {
   Medic.findById({ _id: req.body.medicId }).populate("pacients").exec().then(result => {
     res.status(200).json({
       pacients: result.pacients
@@ -138,7 +138,18 @@ router.post("/createPacient", check, (req, res) => {
           const pacient = new Pacient({
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
-            user: user
+            user: user,
+            age: req.body.age,
+            sex: req.body.sex,
+            weight: req.body.weight,
+            height: req.body.height,
+            bmi: req.body.bmi,
+            whyLose: req.body.whyLose,
+            lifeStyle: req.body.lifeStyle,
+            sport: req.body.sport,
+            intensity: req.body.intensity,
+            muchTime: req.body.muchTime,
+            dietType: req.body.dietType,
           });
           pacient.save();
           Medic.update({ _id: req.body.idMedic }, { $push: { pacients: pacient } }).exec().then(() => {

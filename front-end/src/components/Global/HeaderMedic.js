@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-
-export class Header extends Component {
+export class HeaderMedic extends Component {
 
   render() {
     return (
@@ -8,9 +7,6 @@ export class Header extends Component {
         <div className="row">
           <div className="col-sm-4 col-sm-offset-2">
             <h4>{this.props.userName}</h4>
-          </div>
-          <div className="col-sm-4">
-            <h4>Calorias: {this.props.calories}</h4>
           </div>
         </div>
       </div>

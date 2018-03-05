@@ -18,7 +18,7 @@ const pacientSchema = mongoose.Schema({
   allowedCalories: Number,
   user: { type: mongoose.Schema.ObjectId, ref: "User", required: false },
   menus: [{ type: mongoose.Schema.ObjectId, ref: "Menu", required: false }],
-  dia: [{type: mongoose.Schema.ObjectId, ref:"Day",}]
+  dia: [{type: mongoose.Schema.ObjectId, ref:"Day",required: false}]
 });
 
 module.exports = mongoose.model("Pacient", pacientSchema);
