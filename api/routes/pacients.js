@@ -123,8 +123,19 @@ router.post("/addMenu", checkAll,(req, res) => {
   
 });
 
+//buscar un dia por id
 
-//get Menus from 
+router.get("/findDay/:idDay", (req,res)=>{
+  Day.findById({_id:req.params.idDay}).exec().then(result=>{
+    res.status(200).json({
+      day:result
+    });
+  }).catch(err=>{
+    res.status(500).json({
+      error:err
+    });
+  });
+});
 
 
 

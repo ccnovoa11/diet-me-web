@@ -42,20 +42,6 @@ router.post("/singup", (req, res) => {
 
 router.post("/login", (req, res) => {
   User.find({ email: req.body.email }).exec().then(user => {
-
-    let u;
-    if (user[0].medic) {
-      Medic.find({ user: user[0]._id }).exec().then(result => {
-        u = result[0]._id;
-        console.log(u);
-      });
-    } if (user[0].medic === false) {
-      Pacient.find({ user: user[0]._id }).exec().then(result1 => {
-        u = result1[0]._id;
-        console.log(u, "adads");
-      });
-    }
-
     if (user.length < 1) {
       return res.status(401).json({
         message: "Auth fail"
@@ -69,10 +55,9 @@ router.post("/login", (req, res) => {
       }
       if (response) {
 
-        console.log(u);
         const token = jwt.sign({
           email: user[0].email,
-          userid: u,
+          userid: user[0]._id,
           medic: user[0].medic
         },
           "elgranvaron",
@@ -82,7 +67,7 @@ router.post("/login", (req, res) => {
         return res.status(200).json({
           message: "Auth successful",
           token: token,
-          userId: u
+          userId: user[0]._id
         });
       }
       res.status(401).json({
@@ -94,6 +79,32 @@ router.post("/login", (req, res) => {
     console.log(err);
     res.status(500).json({
       error: err
+    });
+  });
+});
+
+router.get("/:idUser",(req, res)=>{
+  Medic.find({user:req.params.idUser}).exec().then(result=>{
+    console.log(result);
+    if(result.length<1){
+      Pacient.find({user:req.params.idUser}).exec().then(result2=>{
+        console.log(result2[0]._id);
+        return res.status(200).json({
+          idPacient:result2[0]._id
+          
+        });
+      }).catch(err=>{res.status(500).json({
+        error: err
+      })});
+    }else{
+      return res.status(200).json({
+        idMedic: result[0]._id
+      });
+    }
+  }).catch(err2 =>{
+    res.status(500).json({
+      error: err2,
+      message: "es del medico"
     });
   });
 });

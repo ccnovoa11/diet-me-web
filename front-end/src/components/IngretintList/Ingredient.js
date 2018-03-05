@@ -1,8 +1,17 @@
 import React, {Component} from "react";
 export class Ingredient extends Component{
-	render(){
-		return(
-			<a href="#" className="list-group-item list-group-item-action">{this.props.productName}</a>
-		)
-	}
+  constructor(props){
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(){
+    this.props.onClick(this.props.ndbno);
+  }
+
+  render(){
+    return(
+      <button type="button" className="list-group-item list-group-item-action" onClick={this.handleClick}>{this.props.productName}</button>
+    );
+  }
 }

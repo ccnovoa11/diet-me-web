@@ -8,7 +8,7 @@ export class MenuItem extends Component{
   }
 
   handleClick(e){
-    this.props.onClick(this.props.idMenu);
+    this.props.onClick(this.props.menu._id);
   }
 
   render(){
