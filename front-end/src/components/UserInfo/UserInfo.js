@@ -10,8 +10,8 @@ export class UserInfo extends Component {
   }
 
   getPacient() {
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2hvN0BqdWFuLmNvbSIsInVzZXJpZCI6IjVhOWIwYmM3MzA2ZjljMjAwYzkwM2NkZiIsIm1lZGljIjpmYWxzZSwiaWF0IjoxNTIwMjAzMTcyLCJleHAiOjE1MjAyMDY3NzJ9.dzJS4S6LUqGXhx63E-9v3uiVZ4535Po6hpKIV34tj8U";
-    var idPac = "5a9b0bc7306f9c200c903ce0";
+    var token = localStorage.getItem("token");
+    var idPac = localStorage.getItem("idPacient");
     fetch("/pacients/"+idPac, {
       headers: {
         token: token 

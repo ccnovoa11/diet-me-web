@@ -37,7 +37,7 @@ export class Login extends React.Component {
     const isAlreadyAuth = this.isAuthenticated();
     const medic = localStorage.getItem("medic");
 
-    if (!medic) {
+    if (medic==false) {
 
       console.log("no debería pasar por aquí");
       return (

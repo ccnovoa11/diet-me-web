@@ -6,19 +6,11 @@ import {SideMedic} from "./Global/SideMedic";
 
 export class App extends Component {
 
-  isMedic(){
-    let medic = localStorage.getItem("medic");
-    if(medic){
-      return true;
-    }else{
-      return false;
-    }
-  }
   
   render() {
-    const medic = this.isMedic();
+    const medic = localStorage.getItem("medic");
 
-    if(!medic){
+    if(medic==false){
       return (
         <div>
           <div>

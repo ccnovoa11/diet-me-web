@@ -31,8 +31,8 @@ export class Day extends Component {
       localStorage.setItem("idPacient",myJson.idPacient);
       console.log(localStorage.getItem("idPacient"));
 
-      var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2hvN0BqdWFuLmNvbSIsInVzZXJpZCI6IjVhOWIwYmM3MzA2ZjljMjAwYzkwM2NkZiIsIm1lZGljIjpmYWxzZSwiaWF0IjoxNTIwMjAzMTcyLCJleHAiOjE1MjAyMDY3NzJ9.dzJS4S6LUqGXhx63E-9v3uiVZ4535Po6hpKIV34tj8U";
-      var idPac = "5a9b0bc7306f9c200c903ce0";
+      var token = localStorage.getItem("token");
+      var idPac = localStorage.getItem("idPacient");
       fetch("/menus/menusPac", {
         method: "POST",
         headers: {
@@ -97,6 +97,7 @@ export class Day extends Component {
     				Select Menus
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              
               {this.state.menus.map((d,index) => {
                 return <MenuItem name={d.name} menu={d} key={index} onClick={this.selectMenu}/>;
               })}

@@ -1,18 +1,17 @@
 import React from "react";
-import {BrowserRouter, Link} from "react-router-dom";
+import { BrowserRouter, Link } from "react-router-dom";
 
 export class PacientsList extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      pacients: []
+      pacients: [],
+      currentId: ""
     };
 
   }
-
-
-
+  
   componentDidMount() {
     let me = this;
     fetch("/users/" + localStorage.getItem("idUser")).then(res => {
@@ -37,25 +36,39 @@ export class PacientsList extends React.Component {
         });
     });
   }
-  onNavegateDetail(){
-    BrowserRouter.push("/pacient");
-  }
-  
+
+
   render() {
     console.log(this.state.pacients, "hpta");
     return (
       <div>
-        <h1>My Pacients</h1>
+        <h1 className="tittle">My Pacients</h1>
         <div>
           {this.state.pacients.map(
             (f) => {
-              console.log(f.name, "que soy");
               return (
-                <div>
-                  <ul>
-                    <li><b>Name: </b>{f.name} <b>Age:</b>{f.age}
-                      <button type="submit" onClick={this.onNavegateDetail}> View Detail</button></li>
-                  </ul>
+
+                <div className="row intro ">
+                  <div className="col-sm-2">
+                    <label>Name</label>
+                    <input type="text" value={f.name} disabled />
+                  </div>
+                
+                  <div className="col-sm-2">
+                    <label>Age</label>
+                    <input type="text" value={f.age} disabled />
+                  </div>
+                  <div className="col-sm-2">
+                    <label>Weight</label>
+                    <input type="text" value={f.weight} disabled />
+                  </div>
+                  <div className="col-sm-2">
+                    <label>Height</label>
+                    <input type="text" value={f.height} disabled />
+                  </div>
+                  <div className="col-sm-2 button-log">
+                    <button className="buttonLog"type = "submit" onClick>Detail</button>
+                  </div>
                 </div>
 
               );
