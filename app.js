@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 
 
-
+app.use(express.static(path.join(__dirname, "front-end/build")));
 const menusRoutes = require("./api/routes/menus");
 const pacientsRoutes = require("./api/routes/pacients");
 const userRoutes = require("./api/routes/users");
@@ -18,8 +18,7 @@ mongoose.connect("mongodb://ElVargas:elgranvaron123@ds155278.mlab.com:55278/diet
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-/*app.use(express.static(path.join(__dirname, "front-end/build")));*/
-app.use("/static", express.static("front-end"));
+/*app.use("/static", express.static("front-end/build"));*/
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

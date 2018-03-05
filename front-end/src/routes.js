@@ -8,6 +8,8 @@ import { Login } from "./components/Login/Login";
 import {CreateMenu} from "./components/Menu/CreateMenu";
 import { Pacient } from "./components/Medic/Pacient";
 import { PacientsList } from "./components/Medic/PacientsList";
+import {PacientDetail}  from "./components/Medic/PacientDetail";
+
 export const AppRoutes = () =>
   <App>
     <Switch>
@@ -18,6 +20,7 @@ export const AppRoutes = () =>
       <Route path="/createMenu" component={CreateMenu}/>
       <Route path="/pacient" component={Pacient} />
       <Route path="/pacients" component={PacientsList} />
+      <Router path ="/pacientDetail" component ={PacientDetail}/>
     </Switch>
   </App>
 ;

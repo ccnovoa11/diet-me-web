@@ -7,7 +7,8 @@ export class PacientsList extends React.Component {
 
     this.state = {
       pacients: [],
-      currentId: ""
+      currentId: "",
+      selectedPacient: false
     };
 
   }
@@ -35,6 +36,11 @@ export class PacientsList extends React.Component {
           console.log(this.state.pacients, "sigo en mount");
         });
     });
+  }
+
+  searchPacient(idPacient){
+    var token = localStorage.getItem("token");
+    localStorage.setItem("idPacient", idPacient);
   }
 
 
@@ -67,7 +73,7 @@ export class PacientsList extends React.Component {
                     <input type="text" value={f.height} disabled />
                   </div>
                   <div className="col-sm-2 button-log">
-                    <button className="buttonLog"type = "submit" onClick>Detail</button>
+                    <button className="buttonLog" type ="submit" pacientId={f._id} onClick={this.searchPacient}>Detail</button>
                   </div>
                 </div>
 
