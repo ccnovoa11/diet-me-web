@@ -31,7 +31,7 @@ export class Day extends Component {
       localStorage.setItem("idPacient",myJson.idPacient);
       console.log(localStorage.getItem("idPacient"));
 
-      var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2hvN0BqdWFuLmNvbSIsInVzZXJpZCI6IjVhOWIwYmM3MzA2ZjljMjAwYzkwM2NkZiIsIm1lZGljIjpmYWxzZSwiaWF0IjoxNTIwMjAzMTcyLCJleHAiOjE1MjAyMDY3NzJ9.dzJS4S6LUqGXhx63E-9v3uiVZ4535Po6hpKIV34tj8U";
+      var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2hvN0BqdWFuLmNvbSIsInVzZXJpZCI6IjVhOWIwYmM3MzA2ZjljMjAwYzkwM2NkZiIsIm1lZGljIjpmYWxzZSwiaWF0IjoxNTIwMjIwMjQ0LCJleHAiOjE1MjAyMjM4NDR9.dVIl9eT9q-QvEv-7_wGJPHBBS8nXOky1eVCeXCO2YQ8";
       var idPac = "5a9b0bc7306f9c200c903ce0";
       fetch("/menus/menusPac", {
         method: "POST",
@@ -51,7 +51,7 @@ export class Day extends Component {
   }
 
   selectMenu(menuId){
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2hvN0BqdWFuLmNvbSIsInVzZXJpZCI6IjVhOWIwYmM3MzA2ZjljMjAwYzkwM2NkZiIsIm1lZGljIjpmYWxzZSwiaWF0IjoxNTIwMjAzMTcyLCJleHAiOjE1MjAyMDY3NzJ9.dzJS4S6LUqGXhx63E-9v3uiVZ4535Po6hpKIV34tj8U";
+    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2hvN0BqdWFuLmNvbSIsInVzZXJpZCI6IjVhOWIwYmM3MzA2ZjljMjAwYzkwM2NkZiIsIm1lZGljIjpmYWxzZSwiaWF0IjoxNTIwMjIwMjQ0LCJleHAiOjE1MjAyMjM4NDR9.dVIl9eT9q-QvEv-7_wGJPHBBS8nXOky1eVCeXCO2YQ8";
     var idPac = "5a9b0bc7306f9c200c903ce0";
     fetch("/pacients/addMenu", {
       method: "POST",
@@ -71,7 +71,7 @@ export class Day extends Component {
 
   createNewDay()
   {
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2hvN0BqdWFuLmNvbSIsInVzZXJpZCI6IjVhOWIwYmM3MzA2ZjljMjAwYzkwM2NkZiIsIm1lZGljIjpmYWxzZSwiaWF0IjoxNTIwMjAzMTcyLCJleHAiOjE1MjAyMDY3NzJ9.dzJS4S6LUqGXhx63E-9v3uiVZ4535Po6hpKIV34tj8U";
+    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2hvN0BqdWFuLmNvbSIsInVzZXJpZCI6IjVhOWIwYmM3MzA2ZjljMjAwYzkwM2NkZiIsIm1lZGljIjpmYWxzZSwiaWF0IjoxNTIwMjIwMjQ0LCJleHAiOjE1MjAyMjM4NDR9.dVIl9eT9q-QvEv-7_wGJPHBBS8nXOky1eVCeXCO2YQ8";
     var idPac = "5a9b0bc7306f9c200c903ce0";
     fetch("/pacients/createDay", {
       method: "POST",
