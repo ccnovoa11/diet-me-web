@@ -67,7 +67,8 @@ router.post("/login", (req, res) => {
         return res.status(200).json({
           message: "Auth successful",
           token: token,
-          userId: user[0]._id
+          userId: user[0]._id,
+          medic: user[0].medic
         });
       }
       res.status(401).json({
@@ -83,25 +84,27 @@ router.post("/login", (req, res) => {
   });
 });
 
-router.get("/:idUser",(req, res)=>{
-  Medic.find({user:req.params.idUser}).exec().then(result=>{
+router.get("/:idUser", (req, res) => {
+  Medic.find({ user: req.params.idUser }).exec().then(result => {
     console.log(result);
-    if(result.length<1){
-      Pacient.find({user:req.params.idUser}).exec().then(result2=>{
+    if (result.length < 1) {
+      Pacient.find({ user: req.params.idUser }).exec().then(result2 => {
         console.log(result2[0]._id);
         return res.status(200).json({
-          idPacient:result2[0]._id
-          
+          idPacient: result2[0]._id
+
         });
-      }).catch(err=>{res.status(500).json({
-        error: err
-      })});
-    }else{
+      }).catch(err => {
+        res.status(500).json({
+          error: err
+        });
+      });
+    } else {
       return res.status(200).json({
         idMedic: result[0]._id
       });
     }
-  }).catch(err2 =>{
+  }).catch(err2 => {
     res.status(500).json({
       error: err2,
       message: "es del medico"

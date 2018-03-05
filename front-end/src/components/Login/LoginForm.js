@@ -4,6 +4,7 @@ import superagent from "superagent";
 import { Redirect } from "react-router-dom";
 
 export default class LoginForm extends React.Component {
+  
   constructor() {
     super();
     this.state = {
@@ -14,9 +15,11 @@ export default class LoginForm extends React.Component {
 
   handleemailChanged(event) {
     this.setState({ email: event.target.value });
+    console.log(this.state.email);
   }
   handlePasswordChanged(event) {
     this.setState({ password: event.target.value });
+    console.log(this.state.password);
   }
 
   submitForm(event) {
@@ -25,6 +28,7 @@ export default class LoginForm extends React.Component {
       if (err) { this.setState({ errorMessage: "Cannot Authenticate Failed" }); return; }
       localStorage.setItem("token", res.body.token);
       localStorage.setItem("idUser",res.body.userId);
+      localStorage.setItem("medic", res.body.medic);
       this.props.onSuccesfulLogin();
 
     });

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { DietInfo } from "./DietInfo";
 import { PersonalInfo } from "./PersonalInfo";
 
 export class UserInfo extends Component {
@@ -31,11 +30,12 @@ export class UserInfo extends Component {
     return (
       <div>
         <div>
-          <PersonalInfo user={this.state.pacient} />
+          <h1 className="tittle">My Information</h1>
         </div>
         <div>
-          <DietInfo user={this.state.pacient} />
+          <PersonalInfo user={this.state.pacient} />
         </div>
+       
       </div>
     );
   }
