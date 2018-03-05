@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 
-export class Header extends Component {
+export class Header extends Component{
 
-  render() {
-    return (
+  render(){
+    return(
       <div id="head">
         <div className="row">
           <div className="col-sm-4 col-sm-offset-2">

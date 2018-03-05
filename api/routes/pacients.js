@@ -49,25 +49,6 @@ router.patch("/:idPacient", checkAll,(req, res) => {
     }).catch();
 });
 
-//update peso del paciente
-
-router.post("/elpeso",(req,res)=>{
-  Pacient.update({_id:req.body.idPac},
-    {$set:
-      {
-        weight:req.body.weight
-      }
-    }).exec().then(result=>{
-    res.status(200).json({
-      message:result
-    });
-  }).catch(err=>{
-    res.status(500).json({
-      error:err
-    });
-  });
-});
-
 // get by id
 router.get("/:pacientId", checkAll,function (req, res) {
   Pacient.findById({ _id: req.params.pacientId }).populate("dia").exec().then(result => {

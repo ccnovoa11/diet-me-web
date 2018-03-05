@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "heroku-postbuild": "cd front-end && npm install && npm run build"
+    "heroku-postbuild": "cd front-end && npm install --only=dev && npm install && npm run build"
   },
   "author": "Juan Diego González (Gory) y Nicolás Cabrera (El Vargas)",
   "license": "MIT",
