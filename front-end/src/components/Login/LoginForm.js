@@ -29,7 +29,7 @@ export default class LoginForm extends React.Component {
       localStorage.setItem("token", res.body.token);
       localStorage.setItem("idUser",res.body.userId);
       localStorage.setItem("medic", res.body.medic);
-      this.props.onSuccesfulLogin();
+
 
     });
     this.state.email="";

@@ -21,48 +21,23 @@ export class Login extends React.Component {
   handleSuccesfulLogin() {
     this.setState();
   }
-  isMedic() {
-    const medic = localStorage.getItem("medic");
-    if (medic) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-
 
   render() {
 
     const isAlreadyAuth = this.isAuthenticated();
     const medic = localStorage.getItem("medic");
+    console.log(medic);
 
-    if (medic==false) {
-
-      console.log("no debería pasar por aquí");
-      return (
-        <Paper style={styles.paper}>
-          {isAlreadyAuth ? <Redirect to={{ pathname: "/day" }} /> : (
-            <div>
-              <h2 className="tittle">Login</h2>
-              <LoginForm onSuccesfulLogin={this.handleSuccesfulLogin.bind(this)} />
-            </div>
-          )}
-        </Paper>
-      );
-    }else{
-      console.log("debería pasar por aqui");
-      return (
-       
-        <Paper style={styles.paper}>
-          {isAlreadyAuth ? <Redirect to={{ pathname: "/pacients" }} /> : (
-            <div>
-              <h2 className="tittle">Login</h2>
-              <LoginForm onSuccesfulLogin={this.handleSuccesfulLogin.bind(this)} />
-            </div>
-          )}
-        </Paper>
-      );
-    }
+    console.log("no debería pasar por aquí");
+    return (
+      <Paper style={styles.paper}>
+        {isAlreadyAuth ? <Redirect to={{ pathname: "/day" }} /> : (
+          <div>
+            <h2 className="tittle">Login</h2>
+            <LoginForm onSuccesfulLogin={this.handleSuccesfulLogin.bind(this)} />
+          </div>
+        )}
+      </Paper>
+    );
   }
 }
