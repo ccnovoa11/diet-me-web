@@ -18,7 +18,6 @@ export default class Logout extends React.Component {
       <div>
         {isAlreadyAuth ? <Redirect to={{ pathname: "/Login" }} /> : (
           <button lable="LogOut" onTouchEnd={this.handleLogout.bind(this)}>LogOUT</button>
-
         )}
       </div>
     )
