@@ -1,16 +1,15 @@
 # Diet Me
-
-The objective of this project was to create a web page that could help Medics and patients control their diets.
-
+The purpose of this project was to create a website that could help doctors/nutritionists to control their patients diets and have a record of their information. 
+Also, it helps people arrange their meals in an interactive way. 
 ## Getting Started
-To get a copy of these project install git bash, open it from the command line and use 
+To get a copy of these repository install git bash, open it from the command line and use 
 $ git clone: https://github.com/jdgonzaleza/diet-me-web.git
 
 Then, open the root directory and run
-
+```
 $ npm install
-
-Once it finishes, open the frontend folder and run npm install again.
+```
+Open the frontend folder and run npm install again.
 
 ### Prerequisites
 
