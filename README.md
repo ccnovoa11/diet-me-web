@@ -1,3 +1,8 @@
+Cristian Novoa
+- La app de heroku en el enlace del curso no funciona.
+- No hay video demostrando el despliegue de la página.
+- Instrucciones de instalación claras.
+
 # Diet Me
 The purpose of this project was to create a website that could help doctors/nutritionists to control their patients diets and have a record of their information. 
 Also, it helps people arrange their meals in an interactive way. 
