@@ -13,30 +13,57 @@ const styles = {
 };
 
 export class Login extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={
+      medic: false,
+      auth: false
+    };
+    this.redirectMedic = this.redirectMedic.bind(this);
+    this.redirectPacient = this.redirectPacient.bind(this); 
+  }
   isAuthenticated() {
     const token = localStorage.getItem("token");
     return (token && token.length > 10);
   }
 
-  handleSuccesfulLogin() {
-    this.setState();
+  handleSuccesfulLogin(pMedic) {
+    console.log("aaaaaaaaaaaaaaa");
+    this.setState({
+      medic: pMedic,
+      auth: true
+    }, () => { 
+      if(!this.state.medic){
+        fetch("/users/" + localStorage.getItem("idUser")).then(res => {
+          return res.json();
+        })
+          .then(res =>{
+            localStorage.setItem("idPacient", res.idPacient);
+          });
+      }
+    });
+  }
+  
+  redirectMedic(){
+    if(this.state.medic && this.state.auth){
+      return (<Redirect to={{pathname:"/pacients"}}/>);
+    }
+  }
+
+  redirectPacient(){
+    if(this.state.auth){
+      return (<Redirect to={{pathname:"/day"}}/>);
+    }
   }
 
   render() {
-
-    const isAlreadyAuth = this.isAuthenticated();
-    const medic = localStorage.getItem("medic");
-    console.log(medic);
-
-    console.log("no debería pasar por aquí");
+    console.log(this.redirectPacient());
     return (
       <Paper style={styles.paper}>
-        {isAlreadyAuth ? <Redirect to={{ pathname: "/day" }} /> : (
-          <div>
-            <h2 className="tittle">Login</h2>
-            <LoginForm onSuccesfulLogin={this.handleSuccesfulLogin.bind(this)} />
-          </div>
-        )}
+        <div>
+          <h2 className="tittle">Login</h2>
+          <LoginForm onSuccesfulLogin={this.handleSuccesfulLogin.bind(this)} />
+        </div>
       </Paper>
     );
   }

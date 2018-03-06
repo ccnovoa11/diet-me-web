@@ -7,12 +7,14 @@ export class DetailButton extends Component{
   }
 
   handleClick(){
-    this.props.searcPacient(this.props.pacientId);
+    console.log(this.props.pacientId);
+    this.props.onClick(this.props.pacientId);
   }
 
   render(){
+    console.log("aaaaaaaaaaaaaaaaaaaa");
     return(
-      <button className="buttonLog"type = "submit" onClick={this.handleClick}>Detail</button>
+      <button className="buttonLog" onClick={this.handleClick}>Detail</button>
     );
   }
 }

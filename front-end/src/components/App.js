@@ -7,15 +7,12 @@ import { SideMedic } from "./Global/SideMedic";
 export class App extends Component {
 
   render() {
-    const medic = localStorage.getItem("medic");
-
+    var medic = localStorage.getItem("medic");
+    medic = true;
     return (
       <div>
         <div>
-          <Side />
-        </div>
-        <div className="main">
-          <Header />
+          { medic ? <SideMedic /> : <Side />}
         </div>
         <div className="main">
           {this.props.children}

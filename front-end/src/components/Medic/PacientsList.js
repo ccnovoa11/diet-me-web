@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter, Link } from "react-router-dom";
+import { BrowserRouter, Link, Redirect } from "react-router-dom";
+import {DetailButton} from "./DetailButton";
 
 export class PacientsList extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ export class PacientsList extends React.Component {
       currentId: "",
       selectedPacient: false
     };
-
+    this.searchPacient = this.searchPacient.bind(this);
   }
   
   componentDidMount() {
@@ -39,8 +40,12 @@ export class PacientsList extends React.Component {
   }
 
   searchPacient(idPacient){
+    console.log(idPacient);
     var token = localStorage.getItem("token");
     localStorage.setItem("idPacient", idPacient);
+    this.setState({
+      selectedPacient: true
+    });
   }
 
 
@@ -73,7 +78,8 @@ export class PacientsList extends React.Component {
                     <input type="text" value={f.height} disabled />
                   </div>
                   <div className="col-sm-2 button-log">
-                    <button className="buttonLog" type ="submit" pacientId={f._id} onClick={this.searchPacient}>Detail</button>
+                    <DetailButton className="buttonLog" type ="submit" pacientId={f._id} onClick={this.searchPacient}>Detail</DetailButton>
+                    {this.state.selectedPacient ? <Redirect to={{pathname: "/pacientDetail"}}/> : <div> </div> }
                   </div>
                 </div>
 

@@ -11,6 +11,7 @@ export default class LoginForm extends React.Component {
       email: "",
       password: "",
     }
+    this.succesfulLogin = this.succesfulLogin.bind(this);
   }
 
   handleemailChanged(event) {
@@ -29,12 +30,15 @@ export default class LoginForm extends React.Component {
       localStorage.setItem("token", res.body.token);
       localStorage.setItem("idUser",res.body.userId);
       localStorage.setItem("medic", res.body.medic);
-
+      this.succesfulLogin(res.body.medic);
 
     });
     this.state.email="";
     this.state.password="";
+  }
 
+  succesfulLogin(medic){
+    this.props.onSuccesfulLogin(medic);
   }
 
 
