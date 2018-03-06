@@ -63,9 +63,9 @@ Return to the root dirctory and run nodemon server.js
 
 ## Authors
 
-* **Juan Diego González** - [daviddlaiton](https://github.com/jdgonzaleza)
+* **Juan Diego González** - [jdgonzaleza](https://github.com/jdgonzaleza)
 
-* **Nicolás Cabrera** - [jm-dominguez](https://github.com/ne-cabrera)
+* **Nicolás Cabrera** - [ne-cabrera](https://github.com/ne-cabrera)
 
 
 
